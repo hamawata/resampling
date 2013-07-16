@@ -14,17 +14,23 @@
     #pragma comment(lib,"C:\\OpenCV2.2\\lib\\opencv_objdetect220.lib")    // opencv_objdetect
 #endif
 
+void resample(const cv::Mat src, cv::Mat &dst)
+{
+	improc *imp;
+	imp = new improc(cv::INTER_CUBIC);
+	imp->resizeImage(src, dst);
+	delete imp;
+}
 
 int main()
 {
-	cv::Mat a = cv::Mat::eye(3, 3, CV_8U);
+	cv::Mat src;
+	cv::imread("pic2.jpg").convertTo(src, CV_32FC3);
+	cv::Mat dst = cv::Mat::zeros(src.rows * 1.4, src.cols * 1.4, src.type());
 
+	resample(src, dst);
+	dst.convertTo(dst, CV_8UC3);
+	cv::imwrite("dst.jpg", dst);
 
 	return 0;
-}
-
-void resample(const cv::Mat src, cv::Mat &dst)
-{
-	improc imp;
-	imp.resizeImage(src, dst);
 }

@@ -13,14 +13,15 @@ private:
 	double scale_x;
 	double scale_y;
 
-	cv::Mat &_getKernel(cv::Point point);
-	cv::Mat &_getKernel(cv::Point point, cv::Rect src_rect);
+	cv::Mat _getKernel(cv::Point point);
+	cv::Mat _getKernel(cv::Point point, cv::Rect src_rect);
 	cv::Rect _getTargetRect(cv::Point point);
 	cv::Point2f _dstPointToSrc(cv::Point point);
-	double _distanceToWeight(double distance, int interpolate = NULL);
+	double _distanceToWeight(double dist_x, double dist_y, int interpolate = NULL);
 
 public:
 	improc();
+	improc(int interpolate);
 	int resizeImage(const cv::Mat src, cv::Mat &dst);
 
 };
